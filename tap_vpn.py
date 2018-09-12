@@ -4,6 +4,9 @@ import sys
 import json
 import socket
 import select
+import struct
+import os
+import fcntl
 
 def main():
     print sys.argv
@@ -37,7 +40,13 @@ def run_vpn_node():
     server_addr = (server_ip, server_port)
 
     # 连接TAP
-    tap = None
+    IFF_NO_PI = 0x1000
+    # IFF_TUN = 0x0001
+    IFF_TAP = 0x0002
+    TUNSETIFF = 0x400454ca
+    tap = open("/dev", "rw")
+    mode = IFF_NO_PI | IFF_TAP
+    fcntl.ioctl(tap.fileno(), TUNSETIFF, struct.pack("16sH", tap_name, mode))
 
     # 连接 CONTROL CENTER
     control_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
