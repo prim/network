@@ -30,6 +30,7 @@ def run_control_center():
     clients = {}
 
     while True:
+        print 1111111111111111, server_ip, server_port
         binary, addr = sock.recvfrom(1024)
         print addr
         data = json.loads(binary)
@@ -126,7 +127,7 @@ def run_vpn_node():
                         if addr == local_addr:
                             print "skip ", local_addr
                             continue
-                        print "---------" , addr
+                        print "--------- send" , addr
                         udp_sock.sendto(frame_binary, addr)
 
             elif readable is udp_sock:
