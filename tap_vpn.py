@@ -15,8 +15,9 @@ import fcntl
 
 def log(fmt, *args):
     if args:
-        msg = fmt % (args)
-    print msg
+        print fmt % (args)
+    else:
+        print fmt
 
 def main():
     mode = sys.argv[1]
